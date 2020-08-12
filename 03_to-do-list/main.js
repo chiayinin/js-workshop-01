@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function(){
   const statusLi = document.querySelectorAll('li')
   const statusSpan = document.querySelectorAll('li span')
   const suatusClose = document.querySelectorAll('.close')
+  const statusUl = document.querySelector('ul')
   
 
 
@@ -44,7 +45,9 @@ document.addEventListener("DOMContentLoaded", function(){
     nn.appendChild(sp)
     console.log(nn)
 
-    document.querySelector('ul').appendChild(nn).appendChild(sp)
+    document.querySelector('ul').appendChild(nn).appendChild(sp).addEventListener('mousedown', function(){
+      uull
+    })
     
     suatusInput.value = ''
     
@@ -55,31 +58,59 @@ document.addEventListener("DOMContentLoaded", function(){
     sp.addEventListener('click', function(){
       sp.parentNode.remove()
      })
+
   })
 
 
   //第四個
+  uull = statusUl.addEventListener('mousedown',function(){
+
   const items = document.querySelectorAll('ul > li')
 
   items.forEach(function(item){
     item.setAttribute('draggable', true) //?給true
 
-    item.addEventListener('dragstart', dragstart)
-    item.addEventListener('drag', drag)
-    item.addEventListener('dragend', dragend)
+    item.addEventListener('dragstart', ddragstart)
+    item.addEventListener('drag', ddrag)
+    item.addEventListener('dragend', ddragend)
   })
 
-  function dragstart (e) {
+  function ddragstart (e) {
     // e.dataTransfer.setData('text/plain')
     e.target.style.opacity = ".5";
     console.log(e)
   }
 
-  function drag (e) {
+
+
+
+    
+  function ddrag (e){
+    let el = document.elementFromPoint(event.clientX,event.clientY)
+    let current = e.target
+    
+    // console.log(e.offsetY)
+
+    if(current !== el && e.offsetY >= 0){
+      if(el.tagName === 'LI'){
+        el.insertAdjacentElement('afterend',current)
+      }
+    }else if (current !== el && e.offsetY <=0){
+      if(el.tagName === "LI"){
+        el.insertAdjacentElement('beforebegin',current)
+      }
+      
+    }
+      
+
 
   }
 
-  function dragend (e) {
+
+
+
+
+  function ddragend (e) {
     e.target.style.opacity = "";
   }
 
@@ -87,4 +118,5 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
   
+})
 })
